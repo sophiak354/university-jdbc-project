@@ -8,11 +8,7 @@ import com.solvd.university.dao.CourseOfferingDao;
 import com.solvd.university.dao.EnrollmentDao;
 import com.solvd.university.dao.SemesterDao;
 import com.solvd.university.dao.StudentDao;
-import com.solvd.university.dao.impl.CourseDaoImpl;
-import com.solvd.university.dao.impl.CourseOfferingDaoImpl;
-import com.solvd.university.dao.impl.EnrollmentDaoImpl;
-import com.solvd.university.dao.impl.SemesterDaoImpl;
-import com.solvd.university.dao.impl.StudentDaoImpl;
+import com.solvd.university.dao.impl.*;
 import com.solvd.university.service.CourseService;
 import com.solvd.university.service.EnrollmentService;
 import com.solvd.university.service.SemesterService;
@@ -34,7 +30,7 @@ public class Main {
 
             StudentDao studentDao = new StudentDaoImpl();
             CourseDao courseDao = new CourseDaoImpl();
-            SemesterDao semesterDao = new SemesterDaoImpl();
+            SemesterDao semesterDao = new SemesterXmlDaoImpl();
             CourseOfferingDao courseOfferingDao = new CourseOfferingDaoImpl();
             EnrollmentDao enrollmentDao = new EnrollmentDaoImpl();
 
@@ -73,6 +69,9 @@ public class Main {
                     case "9" -> academicController.showCourseById();
                     case "10" -> academicController.showAllSemesters();
                     case "11" -> academicController.showSemesterById();
+                    case "12" -> academicController.createSemester();
+                    case "13" -> academicController.updateSemester();
+                    case "14" -> academicController.deleteSemesterById();
                     case "0" -> {
                         running = false;
                         System.out.println("Exiting application.");
@@ -99,8 +98,11 @@ public class Main {
                 7. Show student enrollments
                 8. Show all courses
                 9. Show course by ID
-                10. Show all semesters
-                11. Show semester by ID
+                10. Show all semesters (XML)
+                11. Show semester by ID (XML)
+                12. Create Semester (XML)
+                13. Update Semester (XML)
+                14. Delete semester by ID (XML)
                 0. Exit
                 """);
         System.out.print("Choose an option: ");

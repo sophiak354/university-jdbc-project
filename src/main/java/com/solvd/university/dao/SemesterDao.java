@@ -7,5 +7,12 @@ import java.util.Optional;
 
 public interface SemesterDao {
     Optional<Semester> findById(int id);
+
     List<Semester> findAll();
+
+    void save(Semester semester);
+
+    void update(Semester semester);
+
+    void deleteById(int id);
 }
