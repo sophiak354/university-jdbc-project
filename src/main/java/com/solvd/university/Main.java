@@ -2,21 +2,12 @@ package com.solvd.university;
 
 import com.solvd.university.config.ConnectionPool;
 import com.solvd.university.controller.AcademicController;
+import com.solvd.university.controller.InstructorController;
 import com.solvd.university.controller.StudentController;
-import com.solvd.university.dao.CourseDao;
-import com.solvd.university.dao.CourseOfferingDao;
-import com.solvd.university.dao.EnrollmentDao;
-import com.solvd.university.dao.SemesterDao;
-import com.solvd.university.dao.StudentDao;
+import com.solvd.university.dao.*;
 import com.solvd.university.dao.impl.*;
-import com.solvd.university.service.CourseService;
-import com.solvd.university.service.EnrollmentService;
-import com.solvd.university.service.SemesterService;
-import com.solvd.university.service.StudentService;
-import com.solvd.university.service.impl.CourseServiceImpl;
-import com.solvd.university.service.impl.EnrollmentServiceImpl;
-import com.solvd.university.service.impl.SemesterServiceImpl;
-import com.solvd.university.service.impl.StudentServiceImpl;
+import com.solvd.university.service.*;
+import com.solvd.university.service.impl.*;
 import com.solvd.university.util.ScriptRunner;
 
 import java.util.Scanner;
@@ -33,6 +24,7 @@ public class Main {
             SemesterDao semesterDao = new SemesterXmlDaoImpl();
             CourseOfferingDao courseOfferingDao = new CourseOfferingDaoImpl();
             EnrollmentDao enrollmentDao = new EnrollmentDaoImpl();
+            InstructorDao instructorDao = new InstructorDaoImpl();
 
             StudentService studentService = new StudentServiceImpl(studentDao);
             CourseService courseService = new CourseServiceImpl(courseDao);
@@ -42,6 +34,7 @@ public class Main {
                     studentDao,
                     courseOfferingDao
             );
+            InstructorService instructorService = new InstructorServiceImpl(instructorDao);
 
             StudentController studentController = new StudentController(studentService, scanner);
             AcademicController academicController = new AcademicController(
@@ -50,6 +43,7 @@ public class Main {
                     semesterService,
                     scanner
             );
+            InstructorController instructorController = new InstructorController(instructorService, scanner);
 
             boolean running = true;
 
@@ -72,6 +66,11 @@ public class Main {
                     case "12" -> academicController.createSemester();
                     case "13" -> academicController.updateSemester();
                     case "14" -> academicController.deleteSemesterById();
+                    case "15" -> instructorController.showAllInstructors();
+                    case "16" -> instructorController.showInstructorById();
+                    case "17" -> instructorController.createInstructor();
+                    case "18" -> instructorController.updateInstructor();
+                    case "19" -> instructorController.deleteInstructorById();
                     case "0" -> {
                         running = false;
                         System.out.println("Exiting application.");
@@ -94,15 +93,24 @@ public class Main {
                 3. Create student
                 4. Update student
                 5. Delete student by ID
+                =========================
                 6. Enroll student into course offering
                 7. Show student enrollments
+                =========================
                 8. Show all courses
                 9. Show course by ID
+                =========================
                 10. Show all semesters (XML)
                 11. Show semester by ID (XML)
                 12. Create Semester (XML)
                 13. Update Semester (XML)
                 14. Delete semester by ID (XML)
+                =========================
+                15. Show all instructors (Jaxb)
+                16. Show instructor by ID (Jaxb)
+                17. Create instructor (Jaxb)
+                18. Update instructor (Jaxb)
+                19. Delete instructor (Jaxb)
                 0. Exit
                 """);
         System.out.print("Choose an option: ");

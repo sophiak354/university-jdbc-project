@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<instructors>
+    <instructor>
+        <instructorId>1</instructorId>
+        <firstName>Jack</firstName>
+        <lastName>Jones</lastName>
+        <email>jj@gmail.com</email>
+        <phone>0111213145</phone>
+        <hireDate>2020-09-01</hireDate>
+        <academicTitle>Assistant Professor</academicTitle>
+        <departmentId>1</departmentId>
+    </instructor>
+    <instructor>
+        <instructorId>2</instructorId>
+        <firstName>Sally</firstName>
+        <lastName>Marbel</lastName>
+        <email>sallym@gmail.com</email>
+        <phone>0223234578</phone>
+        <hireDate>2015-01-12</hireDate>
+        <academicTitle>Lecturer</academicTitle>
+        <departmentId>2</departmentId>
+    </instructor>
+</instructors>
