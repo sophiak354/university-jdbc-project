@@ -2,6 +2,7 @@ package com.solvd.university;
 
 import com.solvd.university.config.ConnectionPool;
 import com.solvd.university.controller.AcademicController;
+import com.solvd.university.controller.DepartmentController;
 import com.solvd.university.controller.InstructorController;
 import com.solvd.university.controller.StudentController;
 import com.solvd.university.dao.*;
@@ -25,6 +26,7 @@ public class Main {
             CourseOfferingDao courseOfferingDao = new CourseOfferingDaoImpl();
             EnrollmentDao enrollmentDao = new EnrollmentDaoImpl();
             InstructorDao instructorDao = new InstructorDaoImpl();
+            DepartmentDao departmentDao = new DepartmentDaoImpl();
 
             StudentService studentService = new StudentServiceImpl(studentDao);
             CourseService courseService = new CourseServiceImpl(courseDao);
@@ -35,6 +37,7 @@ public class Main {
                     courseOfferingDao
             );
             InstructorService instructorService = new InstructorServiceImpl(instructorDao);
+            DepartmentService departmentService = new DepartmentServiceImpl(departmentDao);
 
             StudentController studentController = new StudentController(studentService, scanner);
             AcademicController academicController = new AcademicController(
@@ -44,6 +47,7 @@ public class Main {
                     scanner
             );
             InstructorController instructorController = new InstructorController(instructorService, scanner);
+            DepartmentController departmentController = new DepartmentController(departmentService, scanner);
 
             boolean running = true;
 
@@ -71,6 +75,11 @@ public class Main {
                     case "17" -> instructorController.createInstructor();
                     case "18" -> instructorController.updateInstructor();
                     case "19" -> instructorController.deleteInstructorById();
+                    case "20" -> departmentController.showAllDepartments();
+                    case "21" -> departmentController.showDepartmentById();
+                    case "22" -> departmentController.createDepartment();
+                    case "23" -> departmentController.updateDepartment();
+                    case "24" -> departmentController.deleteDepartmentById();
                     case "0" -> {
                         running = false;
                         System.out.println("Exiting application.");
@@ -111,6 +120,12 @@ public class Main {
                 17. Create instructor (Jaxb)
                 18. Update instructor (Jaxb)
                 19. Delete instructor (Jaxb)
+                =========================
+                20. Show all departments (Jackson)
+                21. Show department by ID (Jackson)
+                22. Create department (Jackson)
+                23. Update department (Jackson)
+                24. Delete department (Jackson)
                 0. Exit
                 """);
         System.out.print("Choose an option: ");

@@ -1,0 +1,9 @@
+[ {
+  "departmentId" : 1,
+  "departmentName" : "Computer Science",
+  "officeLocation" : "Building A"
+}, {
+  "departmentId" : 2,
+  "departmentName" : "Mathematics",
+  "officeLocation" : "Building B"
+} ]
