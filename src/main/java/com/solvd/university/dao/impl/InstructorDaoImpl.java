@@ -7,15 +7,19 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class InstructorDaoImpl implements InstructorDao {
     private static final String FILE_PATH = "src/main/resources/xml/instructors.xml";
+    private static final String XSD_PATH = "src/main/resources/xml/instructors.xsd";
 
     @Override
     public Optional<Instructor> findById(int id) {
@@ -66,6 +70,10 @@ public class InstructorDaoImpl implements InstructorDao {
             JAXBContext context = JAXBContext.newInstance(Instructors.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
+            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = schemaFactory.newSchema(getSchemaFile());
+            unmarshaller.setSchema(schema);
+
             File file = getFile();
             if (!file.exists() || file.length() == 0) {
                 return new Instructors(new ArrayList<>());
@@ -73,6 +81,8 @@ public class InstructorDaoImpl implements InstructorDao {
             return (Instructors) unmarshaller.unmarshal(file);
         } catch (JAXBException e) {
             throw new RuntimeException("Failed to read instructors from XML.", e);
+        } catch (SAXException e) {
+            throw new RuntimeException("Failed to load XSD schema.", e);
         }
     }
 
@@ -96,6 +106,15 @@ public class InstructorDaoImpl implements InstructorDao {
             throw new RuntimeException("File not found: " + FILE_PATH);
         }
 
+        return file;
+    }
+
+    private File getSchemaFile() {
+        File file = new File(XSD_PATH);
+
+        if (!file.exists()) {
+            throw new RuntimeException("Schema file not found: " + XSD_PATH);
+        }
         return file;
     }
 }

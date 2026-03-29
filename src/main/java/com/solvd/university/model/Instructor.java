@@ -4,6 +4,7 @@ import com.solvd.university.dao.xml.LocalDateAdapter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,16 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @XmlRootElement(name = "instructor")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = {
+        "instructorId",
+        "firstName",
+        "lastName",
+        "email",
+        "phone",
+        "hireDate",
+        "academicTitle",
+        "departmentId"
+})
 public class Instructor {
     private int instructorId;
     private String firstName;
