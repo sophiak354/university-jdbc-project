@@ -7,6 +7,11 @@ import com.solvd.university.controller.InstructorController;
 import com.solvd.university.controller.StudentController;
 import com.solvd.university.dao.*;
 import com.solvd.university.dao.impl.*;
+import com.solvd.university.dao.impl.jdbc.CourseDaoImpl;
+import com.solvd.university.dao.impl.jdbc.CourseOfferingDaoImpl;
+import com.solvd.university.dao.impl.jdbc.EnrollmentDaoImpl;
+import com.solvd.university.dao.impl.jdbc.StudentDaoImpl;
+import com.solvd.university.dao.impl.mybatis.*;
 import com.solvd.university.service.*;
 import com.solvd.university.service.impl.*;
 import com.solvd.university.util.ScriptRunner;
@@ -20,11 +25,30 @@ public class Main {
         try {
             ScriptRunner.runScripts("sql/DDL.sql", "sql/DML.sql");
 
-            StudentDao studentDao = new StudentDaoImpl();
-            CourseDao courseDao = new CourseDaoImpl();
-            SemesterDao semesterDao = new SemesterXmlDaoImpl();
-            CourseOfferingDao courseOfferingDao = new CourseOfferingDaoImpl();
-            EnrollmentDao enrollmentDao = new EnrollmentDaoImpl();
+            boolean useMyBatis = true;
+
+            StudentDao studentDao = useMyBatis
+                    ? new StudentMyBatisDaoImpl()
+                    : new StudentDaoImpl();
+
+            CourseDao courseDao = useMyBatis
+                    ? new CourseMyBatisDaoImpl()
+                    : new CourseDaoImpl();
+
+            // Use for XML-based implementation:
+            //SemesterDao semesterDao = new SemesterXmlDaoImpl();
+
+            // Use for MyBatis-based implementation:
+            SemesterDao semesterDao = new SemesterMyBatisDaoImpl();
+
+            CourseOfferingDao courseOfferingDao = useMyBatis
+                    ? new CourseOfferingMyBatisDaoImpl()
+                    : new CourseOfferingDaoImpl();
+
+            EnrollmentDao enrollmentDao = useMyBatis
+                    ? new EnrollmentMyBatisDaoImpl()
+                    : new EnrollmentDaoImpl();
+
             InstructorDao instructorDao = new InstructorDaoImpl();
             DepartmentDao departmentDao = new DepartmentDaoImpl();
 

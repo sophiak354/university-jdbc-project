@@ -1,4 +1,4 @@
-package com.solvd.university.dao.impl;
+package com.solvd.university.dao.impl.jdbc;
 
 import com.solvd.university.config.ConnectionPool;
 import com.solvd.university.dao.CourseDao;
