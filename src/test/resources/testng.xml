@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="University DB Test Suite">
+    <test name="University DB Tests">
+        <classes>
+            <class name="com.solvd.university.UniversityDbTest"/>
+        </classes>
+    </test>
+</suite>
